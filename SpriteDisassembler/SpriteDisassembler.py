@@ -1,9 +1,6 @@
 from slpp import slpp
 from PIL import Image
-import re
-
-# Запрещённые символы в названии
-bad_symbols = ["-", "/"]
+import re, json
 
 # Открытие спрайта
 with open("./WikiSprite.lua", "r", encoding="utf8") as file:
@@ -29,6 +26,12 @@ if im.is_animated:
 item_format = wiki_sprite["настройки"]["формат"] / wiki_sprite["настройки"]["разм"]
 # Псевдонимы
 aliases_list = "return {\n"
+
+
+# Таблица проверки результатов
+sprite_table = '{| class="wikitable invslot-plain"\n|-\n!Название\n!Изобр.\n!Слот\n!Спрайт\n!Изобр. спрайт\n|-'
+# Словарик для создания перенаправлений, если размер изображения 16
+redirects_list = {}
 
 
 # Проверка и добавление англоязычного названия в псевдоним в случае если оно указано для названий с запрещёнными символами
@@ -110,15 +113,22 @@ for pattern in wiki_sprite["IDы"]:
         if ":" in pattern or "/" in pattern:
             if ":" in pattern:
                 pattern_fix = pattern.replace(":", "-")
+                # Название файла
                 img_name = "Grid " + pattern_fix + " (" + mod_name + ").png"
                 # Запись псевдонима
                 aliases_list = aliases_list + aliases_fix_proc(pattern, pattern_fix)
+                # название предмета для таблицы
+                tem_name = pattern_fix
             if "/" in pattern:
                 pattern_fix = pattern.replace("/", "-")
+                # Название файла
                 img_name = "Grid " + pattern_fix + " (" + mod_name + ").png"
                 # Запись псевдонима
                 aliases_list = aliases_list + aliases_fix_proc(pattern, pattern_fix)
+                # Название предмета для таблицы
+                item_name = pattern_fix
         else:
+            # Название файла
             img_name = "Grid " + pattern + " (" + mod_name + ").png"
             # Запись псевдонима для англоязычного названия, если оно есть
             if wiki_sprite["IDы"][pattern].get("en") != None:
@@ -133,9 +143,35 @@ for pattern in wiki_sprite["IDы"]:
                     + wiki_sprite["IDы"][pattern]["en"]
                     + '" },\n'
                 )
+            # Название предмета для таблицы
+            item_name = pattern
         compress_neighbor_pixels(region).save(img_name)
-# Закрытие списка псевдонимов
-aliases_list = re.sub(",\n$", "\n}", aliases_list)
+        # Генерация названий для обычных спрайтов
+        sprite_name = f"Спрайт-{mod_name.replace(" ", "-")} {pattern.lower().replace(" ", "-")}.png"
+
+        # Дополнение словаря изображений если размер 16
+        if compress_neighbor_pixels(region).size[0] == 16:
+            redirects_list.update({sprite_name: img_name})
+
+        # Таблица проверки результатов
+        sprite_table = (
+            f"{sprite_table}\n!{pattern}\n|[[Файл:{img_name}|Grid]]\n|"
+            + "{{Слот|"
+            + mod_name
+            + ":"
+            + pattern
+            + "}}\n|[[:Файл:"
+            + f"{sprite_name}|СпрайтФайл]]\n|[[Файл:{sprite_name}|32px]]\n|-"
+        )
+
+# Сохранение словарика перенаправлений
+with open("Redirects.json", "w", encoding="utf-8") as dictionary:
+    json.dump(redirects_list, dictionary, ensure_ascii=False)
+
+# Сохранение таблицы
+with open("Table.mediawiki", "w", encoding="utf-8") as sprite_table_file:
+    sprite_table_file.write(re.sub(r"\|-$", "|}", sprite_table))
+
 # Сохранение псевдонимов
-with open("Aliases.lua", "w", encoding="utf-8") as file:
-    file.write(aliases_list)
+with open("Aliases.lua", "w", encoding="utf-8") as aliases_file:
+    aliases_file.write(re.sub(",\n$", "\n}", aliases_list))
