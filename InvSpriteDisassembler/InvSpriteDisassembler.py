@@ -32,6 +32,8 @@ aliases_list = "return {\n"
 sprite_table = '{| class="wikitable invslot-plain"\n|-\n!Название\n!Изобр.\n!Слот\n!Спрайт\n!Изобр. спрайт\n|-'
 # Словарик для создания перенаправлений, если размер изображения 16
 redirects_list = {}
+# Словарик для создания перенаправлений, если размер изображения 32
+redirects_list_32 = {}
 
 
 # Проверка и добавление англоязычного названия в псевдоним в случае если оно указано для названий с запрещёнными символами
@@ -152,6 +154,8 @@ for pattern in wiki_sprite["IDы"]:
         # Дополнение словаря изображений если размер 16
         if compress_neighbor_pixels(region).size[0] == 16:
             redirects_list.update({sprite_name: img_name})
+        else:
+            redirects_list_32.update({sprite_name: img_name})
 
         # Таблица проверки результатов
         sprite_table = (
@@ -165,8 +169,12 @@ for pattern in wiki_sprite["IDы"]:
         )
 
 # Сохранение словарика перенаправлений
+# 16
 with open("Redirects.json", "w", encoding="utf-8") as dictionary:
     json.dump(redirects_list, dictionary, ensure_ascii=False)
+# 32
+with open("Redirects32.json", "w", encoding="utf-8") as dictionary:
+    json.dump(redirects_list_32, dictionary, ensure_ascii=False)
 
 # Сохранение таблицы
 with open("Table.mediawiki", "w", encoding="utf-8") as sprite_table_file:
