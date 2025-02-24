@@ -1,0 +1,2 @@
+python ./InvSpriteDisassembler.py
+pause

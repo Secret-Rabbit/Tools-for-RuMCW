@@ -1,2 +1,0 @@
-python ./SpriteDisassembler.py
-pause
