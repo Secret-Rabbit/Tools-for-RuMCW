@@ -36,6 +36,7 @@ favorites_keys = {
     "painting.minecraft.",
     "trim_pattern",
     "^dataPack.",
+    "^subtitles.",
 }
 # Restricted list
 # Запрещающий список
@@ -178,7 +179,9 @@ with open(
             if ex_key == 0 and bool(re.search(f, i)):
                 # Проверка на то, является ли строка описанием
                 # Checking whether the string is a description
-                if bool(re.search(".description", i)):
+                if bool(re.search(".description", i)) or bool(
+                    re.search("subtitles.", i)
+                ):
                     # Запись в файл отформатированных строк таблицы, если строка является описанием
                     # Writing formatted table rows to a file, if the string is a description
                     localization_table.write(
