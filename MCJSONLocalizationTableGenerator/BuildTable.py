@@ -18,80 +18,76 @@ void_placeholder = "{{Нет}}"
 # Allow list
 # Разрешающий список
 favorites_keys = {
-    "^biome.",
-    "^block.",
-    "^color.",
-    "^effect.",
-    "^gamerule.",
-    "advancements.",
-    "container.",
-    "enchantment.minecraft.",
-    "entity.minecraft.",
-    "filled_map.",
-    "flat_world_preset.",
-    "gameMode.",
-    "generator.",
-    "item.minecraft.",
-    "jukebox_song.",
-    "painting.minecraft.",
+    "^biome\\.",
+    "^block\\.",
+    "^dataPack\\.",
+    "^effect\\.",
+    "^gamerule\\.",
+    "^subtitles\\.",
+    "advancements\\.",
+    "container\\.",
+    "enchantment\\.minecraft\\.",
+    "entity\\.minecraft\\.",
+    "filled_map\\.",
+    "flat_world_preset\\.",
+    "gameMode\\.",
+    "generator\\.",
+    "item\\.minecraft\\.",
+    "jukebox_song\\.",
+    "painting\\.minecraft\\.",
     "trim_pattern",
-    "^dataPack.",
-    "^subtitles.",
 }
 # Restricted list
 # Запрещающий список
 unwanted_keys = {
-    "^advancements.empty",
-    "^advancements.progress$",
-    "^advancements.sad_label$",
-    "^advancements.toast.",
-    "^block.minecraft.beacon.",
-    "^block.minecraft.bed/.",
-    "^block.minecraft.player_head.named$",
-    "^block.minecraft.spawn.not_valid$",
-    "^block.minecraft.spawner.desc1$",
-    "^block.minecraft.spawner.desc2$",
-    "^container.beehive.bees$",
-    "^container.beehive.honey$",
-    "^container.enchant.$",
-    "^container.enchant.clue$",
-    "^container.enchant.lapis.",
-    "^container.enchant.level.many$",
-    "^container.enchant.level.one$",
-    "^container.enchant.level.requirement$",
-    "^container.isLocked$",
-    "^container.repair.cost$",
-    "^container.shulkerBox.itemCount$",
-    "^container.shulkerBox.more$",
-    "^container.shulkerBox.unknownContents$",
-    "^container.spectatorCantOpen$",
-    "^container.upgrade.error_tooltip$",
-    "^container.upgrade.missing_template_tooltip$",
-    "^effect.duration.infinite$",
-    "^effect.none$",
-    "^entity.minecraft.falling_block_type$",
-    "^filled_map.id$",
-    "^filled_map.level$",
-    "^filled_map.locked$",
-    "^filled_map.scale$",
-    "^item.minecraft.bundle.empty$",
-    "^item.minecraft.bundle.fullness$",
-    "^item.minecraft.crossbow.projectile$",
-    "^item.minecraft.debug_stick.empty$",
-    "^item.minecraft.debug_stick.select$",
-    "^item.minecraft.debug_stick.update$",
-    "^item.minecraft.firework_rocket.flight$",
-    "^item.minecraft.smithing_template.applies_to$",
-    "^item.minecraft.smithing_template.upgrade$",
+    "^advancements\\.empty",
+    "^advancements\\.progress$",
+    "^advancements\\.sad_label$",
+    "^advancements\\.toast\\.",
+    "^block\\.minecraft\\.beacon\\.",
+    "^block\\.minecraft\\.bed/\\.",
+    "^block\\.minecraft\\.bed\\.",
+    "^block\\.minecraft\\.player_head\\.named$",
+    "^block\\.minecraft\\.set_spawn$",
+    "^block\\.minecraft\\.spawn\\.not_valid$",
+    "^block\\.minecraft\\.spawner\\.",
+    "^block\\.minecraft\\.tnt\\.disabled$",
+    "^container\\.beehive\\.bees$",
+    "^container\\.beehive\\.honey$",
+    "^container\\.enchant\\.$",
+    "^container\\.enchant\\.clue$",
+    "^container\\.enchant\\.lapis\\.",
+    "^container\\.enchant\\.level\\.",
+    "^container\\.isLocked$",
+    "^container\\.repair\\.cost$",
+    "^container\\.repair\\.expensive$",
+    "^container\\.shulkerBox\\.",
+    "^container\\.spectatorCantOpen$",
+    "^container\\.upgrade\\.error_tooltip$",
+    "^container\\.upgrade\\.missing_template_tooltip$",
     "^dataPack.title$",
     "^dataPack.validation.",
+    "^effect\\.duration\\.infinite$",
+    "^effect\\.none$",
+    "^entity\\.minecraft\\.falling_block_type$",
+    "^filled_map\\.id$",
+    "^filled_map\\.level$",
+    "^filled_map\\.locked$",
+    "^filled_map\\.scale$",
     "^flat_world_preset.unknown$",
-    "^gameMode.changed$",
-    "^selectWorld.gameMode.adventure.",
-    "^selectWorld.gameMode.creative.",
-    "^selectWorld.gameMode.hardcore.",
-    "^selectWorld.gameMode.spectator.",
-    "^selectWorld.gameMode.survival.",
+    "^gameMode\\.changed$",
+    "^item.minecraft\\.crossbow\\.projectile.",
+    "^item\\.minecraft\\.bundle\\.",
+    "^item\\.minecraft\\.crossbow\\.projectile$",
+    "^item\\.minecraft\\.debug_stick\\.",
+    "^item\\.minecraft\\.firework_rocket\\.",
+    "^item\\.minecraft\\.firework_rocket\\.flight$",
+    "^item\\.minecraft\\.smithing_template\\.",
+    "^selectWorld\\.gameMode\\.adventure\\.",
+    "^selectWorld\\.gameMode\\.creative\\.",
+    "^selectWorld\\.gameMode\\.hardcore\\.",
+    "^selectWorld\\.gameMode\\.spectator\\.",
+    "^selectWorld\\.gameMode\\.survival\\.",
 }
 
 # Getting links to JSON versions list
@@ -132,14 +128,11 @@ for i in version_manifest["versions"]:
         asset_index = requests.get(ver_json["assetIndex"]["url"]).json()
         # Получение хеша json-файла локализации для заданного языка
         # Get hash of localization json file for specified language
-        hash_lang = asset_index["objects"]["minecraft/lang/" + lang + ".json"]["hash"]
+        hash_lang = asset_index["objects"][f"minecraft/lang/{lang}.json"]["hash"]
         # Чтение JSON-файла локализации целевой версии с последующим преобразованием строк JSON в объект Python
         # Reading target version localization JSON file and then converting the JSON strings into a Python object
         other_lang = requests.get(
-            "https://resources.download.minecraft.net/"
-            + hash_lang[:2]
-            + "/"
-            + hash_lang
+            f"https://resources.download.minecraft.net/{hash_lang[:2]}/{hash_lang}"
         ).json()
 
 
@@ -149,12 +142,8 @@ with open(
     # Запись шапки таблицы в файл
     # Write table header to file
     localization_table.write(
-        '{|class="wikitable sortable"\n!'
-        + translate_key
-        + "\n!"
-        + en_lang_name
-        + "\n!"
-        + localized_name
+        '{|class="wikitable sortable"'
+        + f"\n!{translate_key}\n!{en_lang_name}\n!{localized_name}"
     )
     # Перечисление англоязычных ИД`ы
     # Listing of English-language IDs
@@ -177,34 +166,27 @@ with open(
             # Проверка срабатывания фильтра ключей и проверка на избранность
             # Checking the activation of key filter and checking for favorites
             if ex_key == 0 and bool(re.search(f, i)):
-                # Проверка на то, является ли строка описанием
-                # Checking whether the string is a description
-                if bool(re.search(".description", i)) or bool(
-                    re.search("subtitles.", i)
+                # Проверка на то, является ли строка описанием, субтитрами, названием песен, информацией не нужной в ссылках
+                # Checking whether the string is a description, subtitles, song title, or information not needed in the links
+                if (
+                    bool(re.search("\\.desc", i))
+                    or bool(re.search("subtitles\\.", i))
+                    or bool(re.search("\\.info", i))
+                    or bool(re.search("jukebox_song\\.", i))
                 ):
-                    # Запись в файл отформатированных строк таблицы, если строка является описанием
-                    # Writing formatted table rows to a file, if the string is a description
+                    # Запись в файл отформатированных строк без ссылок
+                    # Writing formatted strings to a file without links
                     localization_table.write(
-                        "\n|-\n|"
-                        + i
-                        + "\n|"
-                        + en_us[i]
-                        + "\n|"
-                        + other_lang.setdefault(i, void_placeholder)
+                        f"\n|-\n|{i}\n|{en_us[i]}\n|{other_lang.setdefault(i, void_placeholder)}"
                     )
                 else:
                     # Обработка пустых строк
                     # Processing of empty lines
                     if other_lang.setdefault(i, void_placeholder) == void_placeholder:
-                        # Запись в файл отформатированных строк таблицы, если строка не является описанием, если перевод не задан
-                        # Writing formatted table rows to a file, if string is not a description, if value is not specified
+                        # Запись в файл отформатированных строк таблицы
+                        # Writing formatted table rows
                         localization_table.write(
-                            "\n|-\n|"
-                            + i
-                            + "\n|[[:en:"
-                            + en_us[i]
-                            + "|"
-                            + en_us[i]
+                            f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}"
                             + "]]\n|}"
                             + void_placeholder
                         )
@@ -212,15 +194,7 @@ with open(
                         # Запись в файл отформатированных строк таблицы
                         # Writing formatted table rows to a file
                         localization_table.write(
-                            "\n|-\n|"
-                            + i
-                            + "\n|[[:en:"
-                            + en_us[i]
-                            + "|"
-                            + en_us[i]
-                            + "]]\n|[["
-                            + other_lang[i]
-                            + "]]"
+                            f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}]]\n|[[{other_lang[i]}]]"
                         )
     localization_table.write("\n|}")
     localization_table.close
