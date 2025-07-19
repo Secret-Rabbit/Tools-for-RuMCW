@@ -17,6 +17,10 @@ for item in redirects:
     # summary: краткое описание изменений.
     summary = "Перенаправление для спрайта предмета"
     page = pywikibot.Page(site, title)
-    page.text = content
-    # Создание страницы
-    page.save(summary=summary)
+    #Проверка на существование страницы
+    if page.exists():
+        print(f"Страница {title} уже существует")
+    else:
+        page.text = content
+        # Создание страницы
+        page.save(summary=summary, bot=True)
