@@ -13,7 +13,7 @@
 | folder              | Указывает на папку в которой надо оптимизировать файлы. По умолчанию используется абсолютный путь к текущей рабочей директории. |
 | prefix              | Указывает на то, файлы с каким префиксом будут оптимизированы.                                                                  |
 | extension           | Указывает на то, файлы какого расширения будут оптимизированы.                                                                  |
-| file_optimizer_path | Содержит путь к исполняемому файлу File Optimizer.                                                                              |
+| file_optimizer_path | Содержит путь к исполняемому файлу FileOptimizer.                                                                              |
 | max_parallel        | Указывает число параллельных оптимизаций, запущенных одновременно.                                                              |
 | optimization_level  | Указывает уровень оптимизации (целое число от 0 до 9).                                                                          |
 
@@ -32,6 +32,6 @@ The table shows a list of parameters that can be configured directly in the scri
 | folder              | Specifies the folder where files should be optimized. By default, the absolute path to the current working directory is used. |
 | prefix              | Specifies which prefix files will be optimized.                                                                               |
 | extension           | Specifies which extension files will be optimized.                                                                            |
-| file_optimizer_path | Contains the path to the File Optimizer executable file.                                                                      |
+| file_optimizer_path | Contains the path to the FileOptimizer executable file.                                                                      |
 | max_parallel        | Specifies the number of parallel optimizations that can be run simultaneously.                                                |
 | optimization_level  | Specifies the optimization level (integer from 0 to 9).                                                                       |
