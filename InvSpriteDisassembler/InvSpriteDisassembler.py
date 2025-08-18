@@ -26,7 +26,8 @@ if im.is_animated:
 item_format = wiki_sprite["настройки"]["формат"] / wiki_sprite["настройки"]["разм"]
 # Псевдонимы
 aliases_list = "return {\n"
-
+# Содержимое для Модуль:Инвентарный слот/Англоязычные названия/<Мод>
+enNamesModule = f"-- Англоязычные названия для блоков и предметов, отображаемых в Инвентарном слоте.\n-- Также определяет названия файлов из общего хранилища для большинства иконок.\n\n-- Простые обозначения, не требующие автоматической генерации\nlocal enNames = {{\n"
 
 # Таблица проверки результатов
 sprite_table = '{| class="wikitable invslot-plain"\n|-\n!Название\n!Изобр.\n!Слот\n!Спрайт\n!Изобр. спрайт\n|-'
@@ -134,16 +135,9 @@ for pattern in wiki_sprite["IDы"]:
             img_name = "Grid " + pattern + " (" + mod_name + ").png"
             # Запись псевдонима для англоязычного названия, если оно есть
             if wiki_sprite["IDы"][pattern].get("en") != None:
-                aliases_list = (
-                    aliases_list
-                    + '	["'
-                    + pattern
-                    + '"] = { name = "'
-                    + pattern
-                    + '"'
-                    + ', english = "'
-                    + wiki_sprite["IDы"][pattern]["en"]
-                    + '" },\n'
+                enNamesModule = (
+                    enNamesModule
+                    + f'	["{pattern}"] = "{wiki_sprite["IDы"][pattern]["en"]}",\n'
                 )
             # Название предмета для таблицы
             item_name = pattern
@@ -173,8 +167,8 @@ for pattern in wiki_sprite["IDы"]:
 with open("Redirects.json", "w", encoding="utf-8") as dictionary:
     json.dump(redirects_list, dictionary, ensure_ascii=False)
 # 32
-with open("Redirects32.json", "w", encoding="utf-8") as dictionary:
-    json.dump(redirects_list_32, dictionary, ensure_ascii=False)
+with open("Redirects32.json", "w", encoding="utf-8") as dictionary32:
+    json.dump(redirects_list_32, dictionary32, ensure_ascii=False)
 
 # Сохранение таблицы
 with open("Table.mediawiki", "w", encoding="utf-8") as sprite_table_file:
@@ -182,4 +176,12 @@ with open("Table.mediawiki", "w", encoding="utf-8") as sprite_table_file:
 
 # Сохранение псевдонимов
 with open("Aliases.lua", "w", encoding="utf-8") as aliases_file:
-    aliases_file.write(re.sub(",\n$", "\n}", aliases_list))
+    aliases_file.write(re.sub(",\n$", "\n", aliases_list + f"}}"))
+
+# Сохранение англоязычных названий и подключение названий, определённых через шаблон {{Англ}}
+
+with open("EnNames.lua", "w", encoding="utf-8") as enNames_file:
+    enNames_file.write(
+        re.sub(",\n$", "\n", enNamesModule)
+        + f'}}\n\n-- Импорт названий, определённых через шаблон {{{{Англ}}}}\nlocal queryLimit = 500\nlocal queryString = "[[~{mod_name}/*]][[Англоязычное название::+]]|?Англоязычное название|limit=" .. queryLimit\nlocal queryOffset = 0\nlocal queryCount = 0\nrepeat\n	local smwData = mw.smw.getQueryResult(queryOffset > 0 and (queryString .. "|offset=" .. queryOffset) or queryString)\n	if smwData and smwData.results then\n		queryCount = smwData.meta.count\n		for _, result in ipairs(smwData.results) do\n			enNames[string.sub(result.fulltext, {len(mod_name)+2})] = result.printouts["Англоязычное название"][1]\n		end\n		queryOffset = queryOffset + queryLimit\n	else\n		error("[[Модуль:Инвентарный слот/Англоязычные названия/{mod_name}]]: Ошибка запроса SMW")\n		break\n	end\nuntil queryCount < queryLimit\n\nreturn enNames'
+    )
