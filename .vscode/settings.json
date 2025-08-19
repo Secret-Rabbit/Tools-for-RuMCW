@@ -30,6 +30,7 @@
     "slicedlime",
     "slpp",
     "smithing",
-    "wikitable"
+    "wikitable",
+    "pywikibot"
   ]
 }
