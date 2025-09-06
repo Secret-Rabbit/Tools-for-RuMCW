@@ -1,6 +1,6 @@
 ### Русский язык
 
-Скрипт **`OptimizePNGs.py`** запускает оптимизацию файлов в текущей директории, выборочно, в зависимости от указанных настроек. В отличии от обычного использования через графический интерфейс, скрипт позволяет запускать несколько процессов оптимизации параллельно. Количество одновременных оптимизаций указывается непосредственно в самом скрипте, как и остальные настройки.
+Скрипт **`FileOptimize.py`** запускает оптимизацию файлов в текущей директории, выборочно, в зависимости от указанных настроек. В отличии от обычного использования через графический интерфейс, скрипт позволяет запускать несколько процессов оптимизации параллельно. Количество одновременных оптимизаций указывается непосредственно в самом скрипте, как и остальные настройки.
 
 **Осторожно!** Этот скрипт требует обязательного наличия файла конфигурации `FileOptimizer.ini` в домашнем каталоге текущего пользователя (`%userprofile%`). Если устанавливаете FileOptimizer впервые, **обязательно сохраните его конфигурации при первом запуске.** Скрипт **`Install FileOptimizer.bat`** устанавливает **FileOptimizer**, используя [**Windows Package Manager**](https://github.com/microsoft/winget-cli) (winget) и запускает его по завершению установки.
 
@@ -19,7 +19,7 @@
 
 ### English language
 
-The **`OptimizePNGs.py`** script runs optimization of files in the current directory, selectively, depending on the specified settings. Unlike the usual GUI usage, the script allows you to run several optimization processes in parallel. The number of simultaneous optimizations is specified directly in the script itself, as well as other settings.
+The **`FileOptimize.py`** script runs optimization of files in the current directory, selectively, depending on the specified settings. Unlike the usual GUI usage, the script allows you to run several optimization processes in parallel. The number of simultaneous optimizations is specified directly in the script itself, as well as other settings.
 
 **Attention.** This script requires `FileOptimizer.ini` configuration file in the current user's home directory`(%userprofile%`). If you are installing FileOptimizer for the first time, **be sure to save its configurations the first time you run it.** The **`Install FileOptimizer.bat`** script installs **FileOptimizer** using the [**Windows Package Manager**](https://github.com/microsoft/winget-cli) (winget) and runs it when the installation is complete.
 

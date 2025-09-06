@@ -1,0 +1,2 @@
+python ./Animate.py
+pause
