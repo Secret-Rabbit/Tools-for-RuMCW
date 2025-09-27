@@ -1,6 +1,6 @@
 from slpp import slpp
 from PIL import Image
-import re, json
+import re, json, os
 
 # Открытие спрайта
 with open("./WikiSprite.lua", "r", encoding="utf8") as file:
@@ -35,6 +35,12 @@ sprite_table = '{| class="wikitable invslot-plain"\n|-\n!Название\n!Из
 redirects_list = {}
 # Словарик для создания перенаправлений, если размер изображения 32
 redirects_list_32 = {}
+
+# Папка, в которую будут сохранены результаты выполнения скрипта
+target_path = f"{os.getcwd()}\\{mod_name}"
+
+if not os.path.isdir(target_path):
+    os.makedirs(target_path)
 
 
 # Проверка и добавление англоязычного названия в псевдоним в случае если оно указано для названий с запрещёнными символами
@@ -141,7 +147,7 @@ for pattern in wiki_sprite["IDы"]:
                 )
             # Название предмета для таблицы
             item_name = pattern
-        compress_neighbor_pixels(region).save(img_name)
+        compress_neighbor_pixels(region).save(f"{target_path}\\{img_name}")
         # Генерация названий для обычных спрайтов
         sprite_name = f"Спрайт-{mod_name.replace(" ", "-")} {pattern.lower().replace(" ", "-")}.png"
 
@@ -164,23 +170,25 @@ for pattern in wiki_sprite["IDы"]:
 
 # Сохранение словарика перенаправлений
 # 16
-with open("Redirects.json", "w", encoding="utf-8") as dictionary:
+with open(f"{target_path}\\Redirects.json", "w", encoding="utf-8") as dictionary:
     json.dump(redirects_list, dictionary, ensure_ascii=False)
 # 32
-with open("Redirects32.json", "w", encoding="utf-8") as dictionary32:
+with open(f"{target_path}\\Redirects32.json", "w", encoding="utf-8") as dictionary32:
     json.dump(redirects_list_32, dictionary32, ensure_ascii=False)
 
 # Сохранение таблицы
-with open("Table.mediawiki", "w", encoding="utf-8") as sprite_table_file:
+with open(
+    f"{target_path}\\Table.mediawiki", "w", encoding="utf-8"
+) as sprite_table_file:
     sprite_table_file.write(re.sub(r"\|-$", "|}", sprite_table))
 
 # Сохранение псевдонимов
-with open("Aliases.lua", "w", encoding="utf-8") as aliases_file:
+with open(f"{target_path}\\Aliases.lua", "w", encoding="utf-8") as aliases_file:
     aliases_file.write(re.sub(",\n$", "\n", aliases_list + f"}}"))
 
 # Сохранение англоязычных названий и подключение названий, определённых через шаблон {{Англ}}
 
-with open("EnNames.lua", "w", encoding="utf-8") as enNames_file:
+with open(f"{target_path}\\EnNames.lua", "w", encoding="utf-8") as enNames_file:
     enNames_file.write(
         re.sub(",\n$", "\n", enNamesModule)
         + f'}}\n\n-- Импорт названий, определённых через шаблон {{{{Англ}}}}\nlocal queryLimit = 500\nlocal queryOffset = 0\nlocal queryCount = 0\nrepeat\n		local queryResults = mw.ext.bucket("en_name")\n		.select("ru", "en")\n		.where{{"mod", "{mod_name}"}}\n		.limit(queryLimit)\n		.offset(queryOffset)\n		.run()\n	if queryResults then\n		queryCount = #queryResults\n		for _, result in ipairs(queryResults) do\n			enNames[result.ru] = result.en\n		end\n		queryOffset = queryOffset + queryLimit\n	else\n		error("[[Модуль:Инвентарный слот/Англоязычные названия/{mod_name}]]: Ошибка запроса Bucket")\n		break\n	end\nuntil queryCount < queryLimit\n\nreturn enNames'
