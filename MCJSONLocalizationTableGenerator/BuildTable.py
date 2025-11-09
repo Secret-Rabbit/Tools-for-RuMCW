@@ -187,7 +187,7 @@ with open(
                         # Writing formatted table rows
                         localization_table.write(
                             f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}"
-                            + "]]\n|}"
+                            + "]]\n|"
                             + void_placeholder
                         )
                     else:
