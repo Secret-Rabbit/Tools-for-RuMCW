@@ -5,7 +5,8 @@
         "clienthash":"clienthash",
         "clientmap":"",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "English":{
         "jsonhash":"jsonhash",
@@ -13,7 +14,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "Español":{
         "jsonhash":"jsonhash",
@@ -21,7 +23,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "Français":{
         "jsonhash":"jsonhash",
@@ -29,7 +32,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "Italiano":{
         "jsonhash":"jsonhash",
@@ -37,7 +41,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "日本語":{
         "jsonhash":"jsonhash",
@@ -45,7 +50,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "한국어":{
         "jsonhash":"jsonhash",
@@ -53,7 +59,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "文言":{
         "jsonhash":"jsonhash",
@@ -61,7 +68,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "Nederlands":{
         "jsonhash":"jsonhash",
@@ -69,7 +77,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "Português":{
         "jsonhash":"jsonhash",
@@ -77,23 +86,8 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
-    },
-    "ไทย":{
-        "jsonhash":"jsonhash",
-        "jsonfile":"jsonfile",
-        "clienthash":"clienthash",
-        "clientmap":"clientmap",
-        "serverhash":"serverhash",
-        "servermap":"servermap"
-    },
-    "Українська":{
-        "jsonhash":"jsonхеш",
-        "jsonfile":"jsonфайл",
-        "clienthash":"клієнтхеш",
-        "clientmap":"клієнткарта",
-        "serverhash":"серверхеш",
-        "servermap":"серверкарта"
+        "servermap":"servermap",
+        "exehash":"exehash"
     },
     "Русский":{
         "jsonhash":"jsonхеш",
@@ -101,7 +95,26 @@
         "clienthash":"клиентхеш",
         "clientmap":"клиенткарта",
         "serverhash":"серверхеш",
-        "servermap":"серверкарта"
+        "servermap":"серверкарта",
+        "exehash":"exeхеш"
+    },
+    "ไทย":{
+        "jsonhash":"jsonhash",
+        "jsonfile":"jsonfile",
+        "clienthash":"clienthash",
+        "clientmap":"clientmap",
+        "serverhash":"serverhash",
+        "servermap":"servermap",
+        "exehash":"exehash"
+    },
+    "Українська":{
+        "jsonhash":"jsonхеш",
+        "jsonfile":"jsonфайл",
+        "clienthash":"клієнтхеш",
+        "clientmap":"клієнткарта",
+        "serverhash":"серверхеш",
+        "servermap":"серверкарта",
+        "exehash":"exeхеш"
     },
     "中文":{
         "jsonhash":"jsonhash",
@@ -109,6 +122,7 @@
         "clienthash":"clienthash",
         "clientmap":"clientmap",
         "serverhash":"serverhash",
-        "servermap":"servermap"
+        "servermap":"servermap",
+        "exehash":"exehash"
     }
 }
