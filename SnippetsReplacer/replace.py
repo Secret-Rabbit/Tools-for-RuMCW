@@ -2,7 +2,7 @@
 ReorganizationrReplaceList = False
 
 # Открываем файл для чтения
-with open("document.txt", "r", encoding="utf8") as file:
+with open("page.wikitext", "r", encoding="utf8") as file:
     # Читаем содержимое файла в строку
     text = file.read()
 
@@ -47,6 +47,6 @@ for pattern in patterns:
     text = text.replace(search, replace)
 
 # Открываем файл для записи
-with open("document.txt", "w", encoding="utf8") as file:
+with open("out_page.wikitext", "w", encoding="utf8") as file:
     # Записываем измененный текст в файл
     file.write(text)

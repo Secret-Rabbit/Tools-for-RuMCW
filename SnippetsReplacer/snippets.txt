@@ -3,21 +3,65 @@
 {{reflist}}
 {{Примечания}}
 {{Notelist}}
-{{Примечания|group=note}}
+{{Заметки}}
+{{Infobox block
+{{Карточка блока
+{{Infobox version
+{{Карточка версии
 {{Version nav
 {{Версия навигация
-{{yt
-{{ytl
-{{Java Edition versions
-{{Версии Java Edition
-{{fixes
-{{Исправления
-{{snap
-{{Снимок
 {{ItemLink
 {{Ссылка/Предмет
-{{BlockLink|
+{{BlockLink
 {{Ссылка/Блок
+{{fixes
+{{Исправления
+{{Navbox Java Edition versions
+{{Навигация по версиям Java Edition
+{{for
+{{Для
+{{upcoming
+{{Заплан
+{{until
+{{До
+{{Crafting
+{{Крафт
+{{Breaking row
+{{Таблица разрушаемости
+{{Stonecutting
+{{Резка камня
+{{In development
+{{Предварительное
+drop=
+дроп=
+horizontal=
+встолбик=
+showdescription=
+показатьописание=
+ waterloggable =
+затопл=
+ lavasusceptible =
+загоротлавы=
+ flammable =
+восплам=
+ transparent =
+прозр=
+waterloggable=
+затопл=
+lavasusceptible=
+загоротлавы=
+flammable=
+восплам=
+transparent=
+прозр=
+ light = 
+свет=
+light=
+свет=
+ tool = 
+инструмент=
+tool=
+инструмент=
 title=
 название=
 name=
@@ -30,8 +74,14 @@ image2=
 изображение2=
 image3=
 изображение3=
+imagecaption=
+изображениеописание=
+image2caption=
+изображение2описание=
+image3caption=
+изображение3описание=
 date=
-дата выпуска=
+дата=
 jsonhash=
 jsonхеш=
 clienthash=
@@ -56,38 +106,106 @@ type=
 тип=
 fixedin=
 исправленов=
+otherissuescount=
+другиеошибки=
+ title = 
+название=
+ name = 
+имя=
+ edition = 
+издание=
+ image = 
+изображение=
+ image2 = 
+изображение2=
+ image3 = 
+изображение3=
+ imagecaption = 
+изображениеописание=
+ image2caption = 
+изображение2описание=
+ image3caption = 
+изображение3описание=
+ date = 
+дата=
+ jsonhash = 
+jsonхеш=
+ clienthash = 
+клиентхеш=
+ clientmap = 
+клиенткарта=
+ serverhash = 
+серверхеш=
+ servermap = 
+серверкарта=
+ prevparent = 
+предверсия=
+ prev = 
+пред=
+ next = 
+след=
+ nextparent = 
+следверсия=
+ parent = 
+предсборка для=
+ type = 
+тип=
+ renewable = 
+возобн=
+renewable=
+возобн=
+invimage=
+инвизображение=
+ invimage = 
+инвизображение=
+invimage2=
+инвизображение2=
+ invimage2 = 
+инвизображение2=
+invimage3=
+инвизображение3=
+ invimage3 = 
+инвизображение3=
+stackable=
+склад=
+ stackable = 
+склад=
+jsonfile=
+jsonфайл=
+ jsonfile = 
+jsonфайл=
 =Snapshot
-=Предварительная сборка
+=Снапшот
 =Release candidate
 =Кандидат на релиз
 =Pre-release
 =Пре-релиз
--rc1.jpg
-Release Candidate 1.jpg
--rc2.jpg
-Release Candidate 2.jpg
--rc3.jpg
-Release Candidate 3.jpg
--pre1.jpg
-Pre-release 1.jpg
--pre2.jpg
-Pre-release 2.jpg
--pre3.jpg
-Pre-release 3.jpg
--pre4.jpg
-Pre-release 4.jpg
--pre5.jpg
-Pre-release 5.jpg
--pre6.jpg
-Pre-release 6.jpg
--pre7.jpg
-Pre-release 7.jpg
+= Snapshot
+=Снапшот
+= Release candidate
+=Кандидат на релиз
+= Pre-release
+=Пре-релиз
+project=
+проект=
 Video made by
 Видео, созданное
 known as
 также известный как
+in the [[launcher]]
+в [[лаунчер]]е
 in the launcher
 в [[лаунчер]]е
+== Obtaining ==
+== Получение ==
+=== Breaking ===
+=== Разрушение ===
+=== Crafting ===
+=== Крафт ===
+=== Stonecutting ===
+=== Резка ===
+== Usage ==
+== Использование ==
 = Changes =
 = Изменения =
 = Gameplay =
@@ -330,3 +448,83 @@ in the launcher
 ; Протокол
 ; Multiplayer and World Selection screens
 ; Экраны многопользовательской игры и выбора мира
+description=
+описание=
+Output=
+Выход=
+Output = 
+Выход=
+== Data values ==
+== Значения данных ==
+=== ID ===
+=== Идентификаторы ===
+{{edition
+{{Издание
+{{ID table2
+{{Таблица ИД
+{{ID table
+{{Таблица ИД
+edition=
+издание=
+showblocktags=y
+показтегиблока=1
+showitemtags=y
+показтегипредмета=1
+showforms=y
+показформы=1
+generatetranslationkeys=y
+ключиперевода=1
+spritetype=
+спрайт-тип=
+foot=
+подвал=
+shownumericids=y
+показномерid=1
+=== Block states ===
+=== Состояния блока ===
+{{see also
+{{См. также
+{{#lst:Stairs
+{{#lst:Ступени
+Block states}}
+Состояния блока}}
+== History ==
+== История ==
+=== Announcement ===
+=== Анонс ===
+== Issues ==
+== Проблемы ==
+{{Issue list}}
+{{Проблемы с объектом|}}
+== Gallery ==
+== Галерея ==
+== Navigation ==
+== Навигация ==
+{{Navbox new content
+{{Навигация по нововведениям
+{{Navbox blocks
+{{Навигация по блокам
+Building}}
+декоративные}}
+exp=
+эксп=
+dev=
+сборка=
+{{HistoryTable
+{{Таблица истории
+{{HistoryLine
+{{Строка истории
+File:
+Файл:
+link=
+ссылка=
+Yes
+Да
+No
+Нет
+{{only
+{{Только
+short=1
+к=1
+== Sounds ==
+== Звуки ==
