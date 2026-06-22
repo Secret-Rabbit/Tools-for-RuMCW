@@ -9,6 +9,8 @@ sprite_sheet = ""
 # Модификация
 mod = ""
 
+# Файл для логирования ошибок и предупреждений
+log_file = "upload_log.txt"
 # Указание расширений для изображений
 target_extension = ".png"
 # Каталог с изображениями.
@@ -20,6 +22,10 @@ content = str(
     f"==Краткое описание ==\nИзображение было получено в результате разбиения таблицы спрайтов [[:Файл:{sprite_sheet}]], которая изначально была загружена участником [[Участник:{user}|{user}]].\n\n== Лицензирование ==\n{{{{Лицензия/Модификация|{mod}}}}}"
 )
 
+# Функция для логирования сообщений
+def log(message):
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(message + "\n")
 
 # Функция вычисления SHA1
 def file_sha1(path):
@@ -28,7 +34,6 @@ def file_sha1(path):
         while chunk := f.read(8192):
             h.update(chunk)
     return h.hexdigest()
-
 
 # Получаем список файлов
 file_names = [
@@ -44,22 +49,32 @@ for file_name in file_names:
 
     print(f"\n=== {file_name} ===")
 
-    # 1. Проверка: файл с таким именем уже существует
+    # Проверка существования
     if image_page.exists():
         print("Предупреждение: Файл уже существует на вики")
 
-    # 2. Проверка SHA1 на дубликат
+    # Проверка SHA1
     local_sha1 = file_sha1(file_path)
-
     duplicates = list(site.allimages(sha1=local_sha1))
+
     if duplicates:
-        print("Пропуск: найден дубликат по SHA1 →", [d.title() for d in duplicates])
+        duplicate_titles = [d.title() for d in duplicates]
+
+        msg = (
+            f"[Дубликат] Локальный файл: {file_name} | SHA1: {local_sha1} | "
+            f"Совпадения на вики: {duplicate_titles}"
+        )
+
+        print("Пропуск:", msg)
+        log(msg)
         continue
 
-    # 3. Загружаем
+    # Попытка загрузки
     try:
         image_page.text = content
         image_page.upload(file_path, ignore_warnings=True, comment=comment)
         print("Загружено успешно")
     except Exception as e:
-        print(f"Ошибка при загрузке: {e}")
+        msg = f"Ошибка загрузки {file_name}: {e}"
+        print(msg)
+        log(msg)
