@@ -136,65 +136,59 @@ for i in version_manifest["versions"]:
         ).json()
 
 
-with open(
-    lang + "-" + mc_ver + ".mediawiki", "w", encoding="utf8"
-) as localization_table:
-    # Запись шапки таблицы в файл
-    # Write table header to file
-    localization_table.write(
-        '{|class="wikitable sortable"'
-        + f"\n!{translate_key}\n!{en_lang_name}\n!{localized_name}"
-    )
-    # Перечисление англоязычных ИД`ы
-    # Listing of English-language IDs
-    for i in en_us:
-        # Сброс срабатывания фильтра плохих ключей
-        # Reset bad key filter triggering
-        ex_key = 0
-        # Перечисление плохих ключей
-        # Listing bad keys
-        for u in unwanted_keys:
-            # Проверка ключа на несоответствие
-            # Checking key for inconsistency
-            if bool(re.search(u, i)):
-                # Вызов срабатывания фильтра плохих ключей
-                # Triggering bad key filter
-                ex_key = 1
-        # Перечисление избранных ключей
-        # Listing your favorite keys
-        for f in favorites_keys:
-            # Проверка срабатывания фильтра ключей и проверка на избранность
-            # Checking the activation of key filter and checking for favorites
-            if ex_key == 0 and bool(re.search(f, i)):
-                # Проверка на то, является ли строка описанием, субтитрами, названием песен, информацией не нужной в ссылках
-                # Checking whether the string is a description, subtitles, song title, or information not needed in the links
-                if (
-                    bool(re.search("\\.desc", i))
-                    or bool(re.search("subtitles\\.", i))
-                    or bool(re.search("\\.info", i))
-                    or bool(re.search("jukebox_song\\.", i))
-                ):
-                    # Запись в файл отформатированных строк без ссылок
-                    # Writing formatted strings to a file without links
-                    localization_table.write(
-                        f"\n|-\n|{i}\n|{en_us[i]}\n|{other_lang.setdefault(i, void_placeholder)}"
+output_text = ""
+
+# Шапка таблицы
+# Table header
+output_text += (
+    '{|class="wikitable sortable"'
+    + f"\n!{translate_key}\n!{en_lang_name}\n!{localized_name}"
+)
+
+# Перечисление англоязычных ИД`ов
+# Listing English ID`s
+for i in en_us:
+    ex_key = 0
+
+    # Проверка плохих ключей
+    # Checking bad keys
+    for u in unwanted_keys:
+        if bool(re.search(u, i)):
+            ex_key = 1
+
+    # Проверка избранных ключей
+    # Checking favorite keys
+    for f in favorites_keys:
+        if ex_key == 0 and bool(re.search(f, i)):
+
+            # Проверка на описание/субтитры/песни/инфо
+            # Checking for description/subtitles/songs/info
+            if (
+                bool(re.search(r"\.desc", i))
+                or bool(re.search(r"subtitles\.", i))
+                or bool(re.search(r"\.info", i))
+                or bool(re.search(r"jukebox_song\.", i))
+            ):
+                output_text += (
+                    f"\n|-\n|{i}\n|{en_us[i]}\n|{other_lang.setdefault(i, void_placeholder)}"
+                )
+
+            else:
+                # Пустые значения
+                # Empty values
+                if other_lang.setdefault(i, void_placeholder) == void_placeholder:
+                    output_text += (
+                        f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}]]\n|{void_placeholder}"
                     )
                 else:
-                    # Обработка пустых строк
-                    # Processing of empty lines
-                    if other_lang.setdefault(i, void_placeholder) == void_placeholder:
-                        # Запись в файл отформатированных строк таблицы
-                        # Writing formatted table rows
-                        localization_table.write(
-                            f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}"
-                            + "]]\n|"
-                            + void_placeholder
-                        )
-                    else:
-                        # Запись в файл отформатированных строк таблицы
-                        # Writing formatted table rows to a file
-                        localization_table.write(
-                            f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}]]\n|[[{other_lang[i]}]]"
-                        )
-    localization_table.write("\n|}")
-    localization_table.close
+                    output_text += (
+                        f"\n|-\n|{i}\n|[[:en:{en_us[i]}|{en_us[i]}]]\n|[[{other_lang[i]}]]"
+                    )
+
+# Закрытие таблицы
+output_text += "\n|}"
+
+# Writing to a file
+# Запись в файл
+with open(f"{lang}-{ver_json['id']}.mediawiki", "w", encoding="utf8") as localization_table:
+    localization_table.write(output_text)
