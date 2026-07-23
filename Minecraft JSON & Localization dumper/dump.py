@@ -164,9 +164,9 @@ def get_localization(url, lang):
     # Reading a version-related JSON file and then converting JSON strings into a Python object
     # Чтение связанного с версией JSON-файла с последующим преобразованием строк JSON в объект Python
     ver_json = requests.get(url, timeout=10).json()
-    localization_full_path = f"{get_full_path(LOCALIZATIONS_FOLDER)}\\{ver_json["id"]}"
+    localization_full_path = f"{get_full_path(LOCALIZATIONS_FOLDER)}\\{ver_json['id']}"
     with open(
-        f"{localization_full_path}\\{ver_json["id"]}.json", "w", encoding="utf-8"
+        f"{localization_full_path}\\{ver_json['id']}.json", "w", encoding="utf-8"
     ) as version_manifest:
         json.dump(ver_json, version_manifest, ensure_ascii=False)
     logging.info("Save last snapshot manifest")
